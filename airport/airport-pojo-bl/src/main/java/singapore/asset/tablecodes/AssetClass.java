@@ -18,7 +18,7 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(String.class)
-@KeyTitle("Key")
+@KeyTitle("Name")
 @CompanionObject(IAssetClass.class)
 @MapEntityTo
 @DescTitle("Description")
