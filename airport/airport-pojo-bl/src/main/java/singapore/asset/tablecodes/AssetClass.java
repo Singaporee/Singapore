@@ -20,6 +20,7 @@ import ua.com.fielden.platform.entity.annotation.UpperCase;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.entity.annotation.mutator.IntParam;
+import ua.com.fielden.platform.entity.validation.annotation.Final;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -50,6 +51,11 @@ public class AssetClass extends ActivatableAbstractEntity<DynamicEntityKey> {
         @Handler(NoSpacesValidator.class),
         @Handler(value = LongerThanValidator.class, integer = @IntParam(name = "minLength", value = 3))})
     @UpperCase
+    private String name;
+    @IsProperty
+    @MapTo
+    @Title(value = "Criticaly", desc = "Indicated how critical assets of this class are.")
+    @Final
     private Integer criticality;
 
     @Observable
