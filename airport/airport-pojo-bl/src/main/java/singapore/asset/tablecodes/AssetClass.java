@@ -1,5 +1,6 @@
 package singapore.asset.tablecodes;
 
+import singapore.asset.tablecodes.validators.LongerThan2Validator;
 import singapore.asset.tablecodes.validators.NoSpacesValidator;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
@@ -44,7 +45,7 @@ public class AssetClass extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title(value = "Name", desc = "Asset class name")
     @CompositeKeyMember(1)
-    @BeforeChange(@Handler(NoSpacesValidator.class))
+    @BeforeChange({@Handler(NoSpacesValidator.class), @Handler(LongerThan2Validator.class)})
     private String name;
     
     @IsProperty
