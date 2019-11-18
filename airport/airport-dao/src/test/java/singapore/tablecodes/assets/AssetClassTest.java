@@ -20,9 +20,10 @@ import ua.com.fielden.platform.security.user.User;
 import ua.com.fielden.platform.utils.IUniversalConstants;
 import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.IAssetClass;
+import singapore.asset.tablecodes.validators.NoSpacesValidator;
 import singapore.personnel.Person;
 import singapore.test_config.AbstractDaoTestCase;
-import singapore.test_config.UniversalConstantsForTesting;
+
 
 /**
  * Thi is a test case for {@link AssetClass}
@@ -47,6 +48,15 @@ public class AssetClassTest extends AbstractDaoTestCase {
         assertTrue(co(AssetClass.class).count(select(AssetClass.class).where().prop("key").like().val("%2").model()) == 1);
     }
     
+    @Test
+    public void asset_class_name_cannot_contain_spaces() {
+        final AssetClass ac1 = co$(AssetClass.class).findByKeyAndFetch(IAssetClass.FETCH_PROVIDER.fetchModel(), "AC1");
+        assertTrue(ac1.isValid().isSuccessful());
+
+        ac1.setName("name with spaces");
+        assertFalse(ac1.isValid().isSuccessful());
+        assertEquals(NoSpacesValidator.ERR_NO_SPACES_ALLOWED, ac1.isValid().getMessage());
+    }
     
     @Test
     public void some_random_operations() {
