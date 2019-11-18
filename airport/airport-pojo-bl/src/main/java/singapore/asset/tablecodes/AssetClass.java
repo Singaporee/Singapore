@@ -1,6 +1,6 @@
 package singapore.asset.tablecodes;
 
-import ua.com.fielden.platform.entity.AbstractPersistentEntity;
+import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
@@ -14,6 +14,7 @@ import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.validation.annotation.Final;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -30,7 +31,7 @@ import ua.com.fielden.platform.utils.Pair;
 @DisplayDescription
 @DescRequired
 @KeyTitle("Asset Class")
-public class AssetClass extends AbstractPersistentEntity<DynamicEntityKey> {
+public class AssetClass extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(AssetClass.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
@@ -41,6 +42,25 @@ public class AssetClass extends AbstractPersistentEntity<DynamicEntityKey> {
     @Title(value = "Name", desc = "Asset class name")
     @CompositeKeyMember(1)
     private String name;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Criticaly", desc = "Indicated how critical assets of this class are.")
+    @Final
+    private Integer criticality;
+
+    @Observable
+    public AssetClass setCriticality(final Integer criticality) {
+        this.criticality = criticality;
+        return this;
+    }
+
+    public Integer getCriticality() {
+        return criticality;
+    }
+
+    
+
 
     @Observable
     public AssetClass setName(final String name) {
@@ -52,7 +72,12 @@ public class AssetClass extends AbstractPersistentEntity<DynamicEntityKey> {
         return name;
     }
 
-    
+    @Override
+    @Observable
+    public AssetClass setDesc(String desc) {
+        super.setDesc(desc);
+        return this;
+    }
 
 
 }
