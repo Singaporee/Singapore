@@ -1,6 +1,6 @@
 package singapore.asset.tablecodes;
 
-import singapore.asset.tablecodes.validators.LongerThan2Validator;
+import singapore.asset.tablecodes.validators.LongerThanValidator;
 import singapore.asset.tablecodes.validators.NoSpacesValidator;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
@@ -16,9 +16,10 @@ import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.UpperCase;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
-import ua.com.fielden.platform.entity.validation.annotation.Final;
+import ua.com.fielden.platform.entity.annotation.mutator.IntParam;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -45,13 +46,10 @@ public class AssetClass extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title(value = "Name", desc = "Asset class name")
     @CompositeKeyMember(1)
-    @BeforeChange({@Handler(NoSpacesValidator.class), @Handler(LongerThan2Validator.class)})
-    private String name;
-    
-    @IsProperty
-    @MapTo
-    @Title(value = "Criticaly", desc = "Indicated how critical assets of this class are.")
-    @Final
+    @BeforeChange({
+        @Handler(NoSpacesValidator.class),
+        @Handler(value = LongerThanValidator.class, integer = @IntParam(name = "minLength", value = 3))})
+    @UpperCase
     private Integer criticality;
 
     @Observable
