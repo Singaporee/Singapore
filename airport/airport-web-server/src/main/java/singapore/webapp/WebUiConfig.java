@@ -2,6 +2,7 @@ package singapore.webapp;
 
 import org.apache.commons.lang.StringUtils;
 
+import singapore.asset.tablecodes.AssetClass;
 import singapore.config.personnel.PersonWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
@@ -24,7 +25,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
     private final int port;
 
     public WebUiConfig(final String domainName, final int port, final Workflows workflow, final String path) {
-        super("Singapore Airport Asset Management", workflow, new String[] { "singapore/" });
+        super("Singapore Airport Asset Management (development)", workflow, new String[] { "singapore/" });
         if (StringUtils.isEmpty(domainName) || StringUtils.isEmpty(path)) {
             throw new IllegalArgumentException("Both the domain name and application binding path should be specified.");
         }
@@ -90,7 +91,10 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 detailIcon("mainMenu:help").
                 bgColor("#FFE680").
                 captionBgColor("#FFD42A").menu()
-                .addMenuItem("Asset Class").description("Asset Class Centre").centre(assetClassWebUiConfig.centre).done()
+                .addMenuItem("Asset Table Codes").description("Various master data for assets.")
+                    .addMenuItem(AssetClass.ENTITY_TITLE).description(String.format("%s Centre", AssetClass.ENTITY_TITLE))
+                    .centre(assetClassWebUiConfig.centre).done()
+                 .done()
                 .addMenuItem("Personnel").description("Personnel related data")
                     .addMenuItem("Personnel").description("Personnel Centre").centre(personWebUiConfig.centre).done()
                 .done()
