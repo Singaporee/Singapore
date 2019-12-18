@@ -5,14 +5,14 @@ import ua.com.fielden.platform.utils.EntityUtils;
 import ua.com.fielden.platform.dao.IEntityDao;
 
 /**
- * Companion object for entity {@link Assets}.
+ * Companion object for entity {@link Asset}.
  *
  * @author Developers
  *
  */
-public interface IAssets extends IEntityDao<Assets> {
+public interface IAsset extends IEntityDao<Asset> {
 
-    static final IFetchProvider<Assets> FETCH_PROVIDER = EntityUtils.fetch(Assets.class).with(
+    static final IFetchProvider<Asset> FETCH_PROVIDER = EntityUtils.fetch(Asset.class).with(
         // TODO: uncomment the following line and specify the properties, which are required for the UI. Then remove the line after.
         // "key", "desc");
         "Please specify the properties, which are required for the UI");

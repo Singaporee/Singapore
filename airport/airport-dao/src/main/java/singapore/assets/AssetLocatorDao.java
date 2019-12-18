@@ -7,21 +7,21 @@ import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.entity.annotation.EntityType;
 /**
- * DAO implementation for companion object {@link IAssetsLocator}.
+ * DAO implementation for companion object {@link IAssetLocator}.
  *
  * @author Developers
  *
  */
-@EntityType(AssetsLocator.class)
-public class AssetsLocatorDao extends CommonEntityDao<AssetsLocator> implements IAssetsLocator {
+@EntityType(AssetLocator.class)
+public class AssetLocatorDao extends CommonEntityDao<AssetLocator> implements IAssetLocator {
 
     @Inject
-    public AssetsLocatorDao(final IFilter filter) {
+    public AssetLocatorDao(final IFilter filter) {
         super(filter);
     }
 
     @Override
-    protected IFetchProvider<AssetsLocator> createFetchProvider() {
+    protected IFetchProvider<AssetLocator> createFetchProvider() {
         return FETCH_PROVIDER;
     }
 
