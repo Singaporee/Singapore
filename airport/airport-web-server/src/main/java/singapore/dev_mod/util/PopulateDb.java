@@ -12,6 +12,8 @@ import org.hibernate.dialect.H2Dialect;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import singapore.asset.tablecodes.AssetClass;
+import singapore.asset.tablecodes.AssetType;
 import singapore.config.ApplicationDomain;
 import singapore.personnel.Person;
 
@@ -79,6 +81,10 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         setupUser(User.system_users.SU, "singapore");
         setupPerson(User.system_users.SU, "singapore");
+        
+        final AssetClass as1 = save(new_(AssetClass.class).setName("AC1").setDesc("First description.").setActive(true));
+        save(new_(AssetClass.class).setName("AC2").setDesc("First description."));
+        save(new_(AssetType.class).setName("AT1").setDesc("First description.").setAssetClass(as1));
 
         LOGGER.info("Completed database creation and population.");
 	}
