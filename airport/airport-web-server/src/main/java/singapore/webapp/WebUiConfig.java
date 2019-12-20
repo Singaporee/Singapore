@@ -6,9 +6,11 @@ import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.config.personnel.PersonWebUiConfig;
+import singapore.services.Servicestatus;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
 import singapore.webapp.config.assets.AssetWebUiConfig;
+import singapore.webapp.config.services.ServicestatusWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
@@ -78,6 +80,9 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final AssetClassWebUiConfig assetClassWebUiConfig = AssetClassWebUiConfig.register(injector(), builder);
         final AssetTypeWebUiConfig assetTypeWebUiConfig = AssetTypeWebUiConfig.register(injector(), builder);
         final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
+        final ServicestatusWebUiConfig servicestatusWebUiConfig = ServicestatusWebUiConfig.register(injector(), builder);
+        
+        
         
         // Configure application web resources such as masters and centres
         configApp()
@@ -120,16 +125,18 @@ public class WebUiConfig extends AbstractWebUiConfig {
             detailIcon("mainMenu:tablecodes").
             bgColor("#FFE680").
             captionBgColor("#FFD42A").menu()
-            .addMenuItem("Asset Table Codes").description("Various master data for assets.")
+                .addMenuItem("Asset Table Codes").description("Various master data for assets.")
                 .addMenuItem(AssetClass.ENTITY_TITLE).description(String.format("%s Centre", AssetClass.ENTITY_TITLE))
                 .centre(assetClassWebUiConfig.centre).done()
                 .addMenuItem(AssetType.ENTITY_TITLE).description(String.format("%s Centre", AssetType.ENTITY_TITLE))
                 .centre(assetTypeWebUiConfig.centre).done()
+                .addMenuItem(Servicestatus.ENTITY_TITLE).description(String.format("%s Centre", Servicestatus.ENTITY_TITLE))
+                .centre(servicestatusWebUiConfig.centre).done()
             .done().
         done().done()
     .setLayoutFor(Device.DESKTOP, null, "[[[{\"rowspan\":2}], []], [[]]]")
     .setLayoutFor(Device.TABLET, null,  "[[[{\"rowspan\":2}], []], [[]]]")
     .setLayoutFor(Device.MOBILE, null, "[[[]],[[]], [[]]]")
     .minCellWidth(100).minCellHeight(148).done();
-}
-}
+    }
+    }

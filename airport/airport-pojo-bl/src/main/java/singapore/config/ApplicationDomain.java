@@ -13,6 +13,7 @@ import ua.com.fielden.platform.entity.AbstractEntity;
 import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
+import singapore.services.Servicestatus;
 
 /**
  * A class to register domain entities.
@@ -30,6 +31,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
         add(AssetClass.class);
         add(AssetType.class);
         add(Asset.class);
+        add(Servicestatus.class);
     }
 
     private static void add(final Class<? extends AbstractEntity<?>> domainType) {
