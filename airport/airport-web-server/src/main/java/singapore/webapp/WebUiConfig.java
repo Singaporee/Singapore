@@ -6,10 +6,12 @@ import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.config.personnel.PersonWebUiConfig;
+import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
 import singapore.webapp.config.assets.AssetWebUiConfig;
+import singapore.webapp.config.services.ConditionRatingWebUiConfig;
 import singapore.webapp.config.services.ServicestatusWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -81,6 +83,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final AssetTypeWebUiConfig assetTypeWebUiConfig = AssetTypeWebUiConfig.register(injector(), builder);
         final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
         final ServicestatusWebUiConfig servicestatusWebUiConfig = ServicestatusWebUiConfig.register(injector(), builder);
+        final ConditionRatingWebUiConfig conditionRatingWebUiConfig = ConditionRatingWebUiConfig.register(injector(), builder);
         
         
         
@@ -132,6 +135,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .centre(assetTypeWebUiConfig.centre).done()
                 .addMenuItem(Servicestatus.ENTITY_TITLE).description(String.format("%s Centre", Servicestatus.ENTITY_TITLE))
                 .centre(servicestatusWebUiConfig.centre).done()
+                .addMenuItem(ConditionRating.ENTITY_TITLE).description(String.format("%s Centre", ConditionRating.ENTITY_TITLE))
+                .centre(conditionRatingWebUiConfig.centre).done()
             .done().
         done().done()
     .setLayoutFor(Device.DESKTOP, null, "[[[{\"rowspan\":2}], []], [[]]]")
