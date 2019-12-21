@@ -12,6 +12,6 @@ import ua.com.fielden.platform.dao.IEntityDao;
  */
 public interface IConditionRating extends IEntityDao<ConditionRating> {
 
-    static final IFetchProvider<ConditionRating> FETCH_PROVIDER = EntityUtils.fetch(ConditionRating.class).with("key", "desc");
+    static final IFetchProvider<ConditionRating> FETCH_PROVIDER = EntityUtils.fetch(ConditionRating.class).with("name", "desc");
 
 }

@@ -1,6 +1,7 @@
 package singapore.services;
 
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
+import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
@@ -22,14 +23,14 @@ import ua.com.fielden.platform.utils.Pair;
  * @author Developers
  *
  */
-@KeyType(String.class)
+@KeyType(DynamicEntityKey.class)
 @KeyTitle("Name")
 @CompanionObject(IServicestatus.class)
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
 @DescRequired
-public class Servicestatus extends AbstractPersistentEntity<String> {
+public class Servicestatus extends AbstractPersistentEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Servicestatus.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();

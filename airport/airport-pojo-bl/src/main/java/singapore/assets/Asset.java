@@ -1,5 +1,7 @@
 package singapore.assets;
 
+import singapore.services.ConditionRating;
+import singapore.services.Servicestatus;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.KeyType;
@@ -44,6 +46,37 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Readonly
     private String number;
 
+    @IsProperty
+    @MapTo
+    @Title(value = "Condition Rating", desc = "The class of this asset type.")
+    private ConditionRating conditionRating;
+
+    @Observable
+    public Asset setConditionRating(final ConditionRating conditionRating) {
+        this.conditionRating = conditionRating;
+        return this;
+    }
+
+    public ConditionRating getConditionRating() {
+        return conditionRating;
+    }
+
+    @IsProperty
+    @MapTo
+    @Title(value = "Service status", desc = "The class of this asset type.")
+    private Servicestatus servicestatus;
+
+    @Observable
+    public Asset setServicestatus(final Servicestatus servicestatus) {
+        this.servicestatus = servicestatus;
+        return this;
+    }
+
+    public Servicestatus getServicestatus() {
+        return servicestatus;
+    }
+
+    
     @Observable
     public Asset setNumber(final String number) {
         this.number = number;

@@ -1,6 +1,7 @@
 package singapore.services;
 
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
+import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
@@ -21,39 +22,39 @@ import ua.com.fielden.platform.utils.Pair;
  * @author Developers
  *
  */
-@KeyType(String.class)
+@KeyType(DynamicEntityKey.class)
 @KeyTitle("Condition Rating")
 @CompanionObject(IConditionRating.class)
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
 @DescRequired
-public class ConditionRating extends AbstractPersistentEntity<String > {
+public class ConditionRating extends AbstractPersistentEntity<DynamicEntityKey> {
 
-   private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(ConditionRating.class);
-   public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
-   public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
+    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(ConditionRating.class);
+    public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
+    public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
 
-   @IsProperty
-   @MapTo
-   @Title(value = "Condition Rating", desc = "condition of Asset")
-   @CompositeKeyMember(1)
-   private String name;
+    @IsProperty
+    @MapTo
+    @Title(value = "Condition Rating", desc = "condition of Asset")
+    @CompositeKeyMember(1)
+    private String name;
 
-   @Observable
-   public ConditionRating setName(final String name) {
-       this.name = name;
-       return this;
-   }
+    @Observable
+    public ConditionRating setName(final String name) {
+        this.name = name;
+        return this;
+    }
 
-   public String getName() {
-       return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   @Observable
-   public ConditionRating setDesc(String desc) {
-       super.setDesc(desc);
-       return this;
-   }
+    @Observable
+    public ConditionRating setDesc(String desc) {
+        super.setDesc(desc);
+        return this;
+    }
 
 }
