@@ -1,5 +1,5 @@
 package singapore.assets;
-
+import singapore.asset.tablecodes.AssetType;
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
@@ -75,6 +75,24 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     public Servicestatus getServicestatus() {
         return servicestatus;
     }
+    
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Asset Type", desc = "The type of this asset.")
+    private AssetType assetType;
+
+    
+    @Observable
+    public Asset setAssetType(final AssetType assetType) {
+        this.assetType = assetType;
+        return this;
+    }
+
+    public AssetType getAssetType() {
+        return assetType;
+    }
+
 
     
     @Observable
