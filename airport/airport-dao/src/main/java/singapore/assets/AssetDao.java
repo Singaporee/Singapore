@@ -33,19 +33,35 @@ public class AssetDao extends CommonEntityDao<Asset> implements IAsset {
         super(filter);
     }
     
-    
     @Override
     @SessionRequired
     public Asset save(final Asset asset) {
-        // TODO implement a solution for a failed transaction where ID was already assigned
-        if (!asset.isPersisted()) {
-            final IKeyNumber coKeyNumber = co(KeyNumber.class);
-            final Integer nextNumber = coKeyNumber.nextNumber("ASSET_NUMBER");
-            asset.setNumber(nextNumber.toString());
-        }
-        return super.save(asset);
-    }
+        final boolean wasPersisted = asset.isPersisted();
+        try {
+            if (!wasPersisted) {
+                final IKeyNumber coKeyNumber = co(KeyNumber.class);
+                final Integer nextNumber = coKeyNumber.nextNumber("ASSET_NUMBER");
+                asset.setNumber(nextNumber.toString());
+            }
 
+            // save asset
+            final Asset savedAsset = super.save(asset);
+            if (!wasPersisted) {
+                final AssetFinDet finDet = co(AssetFinDet.class).new_().setKey(savedAsset);
+                co$(AssetFinDet.class).save(finDet);
+            }
+            // if no exception occurred then simply return the saved instance
+            return savedAsset;
+        } catch (final Exception ex) {
+            // if there was an exception when saving a new asset we need reset the value of its number to the default value
+            if (!wasPersisted) {
+                asset.setNumber(DEFAULT_ASSET_NUMBER);
+            }
+            // and re-throw the exception
+            throw ex;
+        }
+    }
+    
     @Override
     public Asset new_() {
         final Asset asset = super.new_();

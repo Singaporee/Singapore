@@ -1,15 +1,17 @@
 package singapore.webapp;
 
 import org.apache.commons.lang.StringUtils;
-
+import static java.lang.String.format;
 import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
+import singapore.assets.AssetFinDet;
 import singapore.config.personnel.PersonWebUiConfig;
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
+import singapore.webapp.config.assets.AssetFinDetWebUiConfig;
 import singapore.webapp.config.assets.AssetWebUiConfig;
 import singapore.webapp.config.services.ConditionRatingWebUiConfig;
 import singapore.webapp.config.services.ServicestatusWebUiConfig;
@@ -85,7 +87,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final ServicestatusWebUiConfig servicestatusWebUiConfig = ServicestatusWebUiConfig.register(injector(), builder);
         final ConditionRatingWebUiConfig conditionRatingWebUiConfig = ConditionRatingWebUiConfig.register(injector(), builder);
         
-        
+        final AssetFinDetWebUiConfig assetFinDetWebUiConfig = AssetFinDetWebUiConfig.register(injector(), builder);
         
         // Configure application web resources such as masters and centres
         configApp()
@@ -105,8 +107,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
             detailIcon("mainMenu:equipment").
             bgColor("#FFE680").
             captionBgColor("#FFD42A").menu()
-                .addMenuItem(Asset.ENTITY_TITLE).description(String.format("%s Centre", Asset.ENTITY_TITLE))
-                .centre(assetWebUiConfig.centre).done()
+            .addMenuItem(Asset.ENTITY_TITLE).description(format("%s Centre", Asset.ENTITY_TITLE)).centre(assetWebUiConfig.centre).done()
+            .addMenuItem(AssetFinDet.ENTITY_TITLE).description(format("%s Centre", AssetFinDet.ENTITY_TITLE)).centre(assetFinDetWebUiConfig.centre).done()
                 .done().done().
             addModule("Users / Personnel").
                 description("Provides functionality for managing application security and personnel data.").
