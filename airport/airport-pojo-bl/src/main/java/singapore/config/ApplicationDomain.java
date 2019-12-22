@@ -16,6 +16,7 @@ import singapore.assets.Asset;
 import singapore.services.Servicestatus;
 import singapore.services.ConditionRating;
 import singapore.assets.AssetFinDet;
+import singapore.projects.Project;
 
 /**
  * A class to register domain entities.
@@ -36,6 +37,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
         add(Servicestatus.class);
         add(ConditionRating.class);
         add(AssetFinDet.class);
+        add(Project.class);
     }
 
     private static void add(final Class<? extends AbstractEntity<?>> domainType) {

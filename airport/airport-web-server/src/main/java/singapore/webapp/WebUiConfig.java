@@ -7,12 +7,14 @@ import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.assets.AssetFinDet;
 import singapore.config.personnel.PersonWebUiConfig;
+import singapore.projects.Project;
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
 import singapore.webapp.config.assets.AssetFinDetWebUiConfig;
 import singapore.webapp.config.assets.AssetWebUiConfig;
+import singapore.webapp.config.projects.ProjectWebUiConfig;
 import singapore.webapp.config.services.ConditionRatingWebUiConfig;
 import singapore.webapp.config.services.ServicestatusWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
@@ -83,11 +85,16 @@ public class WebUiConfig extends AbstractWebUiConfig {
         //UI for table codes for assets
         final AssetClassWebUiConfig assetClassWebUiConfig = AssetClassWebUiConfig.register(injector(), builder);
         final AssetTypeWebUiConfig assetTypeWebUiConfig = AssetTypeWebUiConfig.register(injector(), builder);
-        final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
         final ServicestatusWebUiConfig servicestatusWebUiConfig = ServicestatusWebUiConfig.register(injector(), builder);
         final ConditionRatingWebUiConfig conditionRatingWebUiConfig = ConditionRatingWebUiConfig.register(injector(), builder);
         
+        //Asset
+        final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
         final AssetFinDetWebUiConfig assetFinDetWebUiConfig = AssetFinDetWebUiConfig.register(injector(), builder);
+        
+        
+        //Project
+        final ProjectWebUiConfig projectWebUiConfig = ProjectWebUiConfig.register(injector(), builder);
         
         // Configure application web resources such as masters and centres
         configApp()
@@ -109,6 +116,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
             captionBgColor("#FFD42A").menu()
             .addMenuItem(Asset.ENTITY_TITLE).description(format("%s Centre", Asset.ENTITY_TITLE)).centre(assetWebUiConfig.centre).done()
             .addMenuItem(AssetFinDet.ENTITY_TITLE).description(format("%s Centre", AssetFinDet.ENTITY_TITLE)).centre(assetFinDetWebUiConfig.centre).done()
+            .addMenuItem(Project.ENTITY_TITLE).description(format("%s Centre", Project.ENTITY_TITLE)).centre(projectWebUiConfig.centre).done()
                 .done().done().
             addModule("Users / Personnel").
                 description("Provides functionality for managing application security and personnel data.").
