@@ -6,6 +6,7 @@ import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.assets.AssetFinDet;
+import singapore.assets.AssetTypeOwnership;
 import singapore.config.personnel.PersonWebUiConfig;
 import singapore.projects.Project;
 import singapore.services.ConditionRating;
@@ -13,6 +14,7 @@ import singapore.services.Servicestatus;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
 import singapore.webapp.config.assets.AssetFinDetWebUiConfig;
+import singapore.webapp.config.assets.AssetTypeOwnershipWebUiConfig;
 import singapore.webapp.config.assets.AssetWebUiConfig;
 import singapore.webapp.config.projects.ProjectWebUiConfig;
 import singapore.webapp.config.services.ConditionRatingWebUiConfig;
@@ -91,7 +93,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         //Asset
         final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
         final AssetFinDetWebUiConfig assetFinDetWebUiConfig = AssetFinDetWebUiConfig.register(injector(), builder);
-        
+        final AssetTypeOwnershipWebUiConfig assetTypeOwnershipWebUiConfig = AssetTypeOwnershipWebUiConfig.register(injector(), builder);
         
         //Project
         final ProjectWebUiConfig projectWebUiConfig = ProjectWebUiConfig.register(injector(), builder);
@@ -147,6 +149,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .centre(servicestatusWebUiConfig.centre).done()
                 .addMenuItem(ConditionRating.ENTITY_TITLE).description(String.format("%s Centre", ConditionRating.ENTITY_TITLE))
                 .centre(conditionRatingWebUiConfig.centre).done()
+                .addMenuItem(AssetTypeOwnership.ENTITY_TITLE).description(String.format("%s Centre", AssetTypeOwnership.ENTITY_TITLE))
+                .centre(assetTypeOwnershipWebUiConfig.centre).done()
             .done().
         done().done()
     .setLayoutFor(Device.DESKTOP, null, "[[[{\"rowspan\":2}], []], [[]]]")
