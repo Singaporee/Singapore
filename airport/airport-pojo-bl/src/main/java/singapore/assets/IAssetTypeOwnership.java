@@ -13,5 +13,5 @@ import ua.com.fielden.platform.dao.IEntityDao;
 public interface IAssetTypeOwnership extends IEntityDao<AssetTypeOwnership> {
 
     static final IFetchProvider<AssetTypeOwnership> FETCH_PROVIDER = EntityUtils.fetch(AssetTypeOwnership.class)
-            .with("assetType", "role", "bu", "org", "startDate");
+            .with("name", "asset","startDate", "role", "bu" ,"org");
 }

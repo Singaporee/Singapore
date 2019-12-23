@@ -43,46 +43,77 @@ public class AssetTypeOwnership extends AbstractPersistentEntity<DynamicEntityKe
 
     @IsProperty
     @MapTo
-    @Title(value = "Asset Type", desc = "Desc")
+    @Title(value = "Asset Type Ownership", desc = "number of AssetTypeOwnership")
     @CompositeKeyMember(1)
-    private AssetType assetType;
+    private String name;
 
+    @Observable
+    public AssetTypeOwnership setName(final String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    
     @IsProperty
     @MapTo
-    @Title(value = "Start Date", desc = "The start date of the ownership")
-    @CompositeKeyMember(2)
-    @DateOnly
-    private Date startDate;
-    // TODO: if introducing finishDate: ensure there will be no overlaps or gaps in the ownership
-    // else (leaving only startDate): ensure there would be appropriate next ownership and new startDate will be after this startDate 
+    @Title(value = "Asset", desc = "Desc")
+    private Asset asset;
+
+    
+    @Observable
+    public AssetTypeOwnership setAsset(final Asset asset) {
+        this.asset = asset;
+        return this;
+    }
+
+    public Asset getAsset() {
+        return asset;
+    }
 
     @IsProperty
     @MapTo
     @Title(value = "Role", desc = "Role that owns assets of the specified asset type")
     @AfterChange(AssetTypeOwnershipExclusivityDefiner.class)
     private Role role;
+    
+    @Observable
+    public AssetTypeOwnership setRole(final Role role) {
+        this.role = role;
+        return this;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+    
 
     @IsProperty
     @MapTo
     @Title(value = "Business Unit", desc = "Business unit that owns assets of the specified asset type")
     @AfterChange(AssetTypeOwnershipExclusivityDefiner.class)
     private BusinessUnit bu;
+    
+    
+    @Observable
+    public AssetTypeOwnership setBu(final BusinessUnit bu) {
+        this.bu = bu;
+        return this;
+    }
+
+    public BusinessUnit getBu() {
+        return bu;
+    }
+
 
     @IsProperty
     @MapTo
     @Title(value = "Organisation", desc = "Organisation that owns assets of the specified asset type")
     @AfterChange(AssetTypeOwnershipExclusivityDefiner.class)
     private Organisation org;
-
-    @Observable
-    public AssetTypeOwnership setStartDate(final Date startDate) {
-        this.startDate = startDate;
-        return this;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
 
     @Observable
     public AssetTypeOwnership setOrg(final Organisation org) {
@@ -94,34 +125,28 @@ public class AssetTypeOwnership extends AbstractPersistentEntity<DynamicEntityKe
         return org;
     }
 
+
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Start Date", desc = "The start date of the ownership")
+    @CompositeKeyMember(2)
+    @DateOnly
+    private Date startDate;
+   
+
     @Observable
-    public AssetTypeOwnership setBu(final BusinessUnit bu) {
-        this.bu = bu;
+    public AssetTypeOwnership setStartDate(final Date startDate) {
+        this.startDate = startDate;
         return this;
     }
 
-    public BusinessUnit getBu() {
-        return bu;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    @Observable
-    public AssetTypeOwnership setRole(final Role role) {
-        this.role = role;
-        return this;
-    }
 
-    public Role getRole() {
-        return role;
-    }
 
-    @Observable
-    public AssetTypeOwnership setAssetType(final AssetType assetType) {
-        this.assetType = assetType;
-        return this;
-    }
 
-    public AssetType getAssetType() {
-        return assetType;
-    }
 
 }

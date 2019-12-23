@@ -86,5 +86,12 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     public String getNumber() {
         return number;
     }
-
+    @Override
+    @Observable
+    public Asset setActive(boolean active) {
+        super.setActive(active);
+        return this;
+    }
 }
+    
+
