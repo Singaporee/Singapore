@@ -1,9 +1,16 @@
 package singapore.services;
 
+import java.util.Date;
+
+import singapore.asset.tablecodes.AssetClass;
+import singapore.asset.tablecodes.AssetType;
+import singapore.assets.Asset;
+import singapore.users.AssetManager;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.DateOnly;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
@@ -41,7 +48,40 @@ public class Servicestatus extends AbstractPersistentEntity<DynamicEntityKey> {
     @Title(value = "Service Status", desc = "Desc")
     @CompositeKeyMember(1)
     private String name;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Asset", desc = "The asset")
+    private Asset asset;
 
+    @Observable
+    public Servicestatus setAsset(final Asset asset) {
+        this.asset = asset;
+        return this;
+    }
+
+    public Asset getAsset() {
+        return asset;
+    }
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Start Date", desc = "The start date of the ownership")
+    @DateOnly
+    private Date startDate;
+   
+    
+    @Observable
+    public Servicestatus setStartDate(final Date startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+    
+    
     @Observable
     public Servicestatus setName(final String name) {
         this.name = name;
@@ -58,6 +98,9 @@ public class Servicestatus extends AbstractPersistentEntity<DynamicEntityKey> {
         super.setDesc(desc);
         return this;
     }
+    
+    
+    
 
 }
 

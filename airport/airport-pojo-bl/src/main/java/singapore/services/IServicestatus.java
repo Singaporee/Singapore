@@ -12,6 +12,7 @@ import ua.com.fielden.platform.dao.IEntityDao;
  */
 public interface IServicestatus extends IEntityDao<Servicestatus> {
 
-    static final IFetchProvider<Servicestatus> FETCH_PROVIDER = EntityUtils.fetch(Servicestatus.class).with("name", "desc");
+    static final IFetchProvider<Servicestatus> FETCH_PROVIDER = EntityUtils.fetch(Servicestatus.class)
+            .with("name", "desc", "asset" ,"startDate");
 
 }
