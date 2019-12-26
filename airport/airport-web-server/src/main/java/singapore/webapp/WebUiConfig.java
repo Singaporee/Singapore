@@ -11,6 +11,7 @@ import singapore.config.personnel.PersonWebUiConfig;
 import singapore.projects.Project;
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
+import singapore.users.AssetOperator;
 import singapore.webapp.config.asset.tablecodes.AssetClassWebUiConfig;
 import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
 import singapore.webapp.config.assets.AssetFinDetWebUiConfig;
@@ -19,6 +20,7 @@ import singapore.webapp.config.assets.AssetWebUiConfig;
 import singapore.webapp.config.projects.ProjectWebUiConfig;
 import singapore.webapp.config.services.ConditionRatingWebUiConfig;
 import singapore.webapp.config.services.ServicestatusWebUiConfig;
+import singapore.webapp.config.users.AssetOperatorWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
@@ -94,7 +96,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
         final AssetFinDetWebUiConfig assetFinDetWebUiConfig = AssetFinDetWebUiConfig.register(injector(), builder);
         final AssetTypeOwnershipWebUiConfig assetTypeOwnershipWebUiConfig = AssetTypeOwnershipWebUiConfig.register(injector(), builder);
-        
+        final AssetOperatorWebUiConfig assetOperatorWebUiConfig = AssetOperatorWebUiConfig.register(injector(), builder);
         //Project
         final ProjectWebUiConfig projectWebUiConfig = ProjectWebUiConfig.register(injector(), builder);
         
@@ -132,6 +134,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .addMenuItem("Users").description("Users related data")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()
+                    .addMenuItem(AssetOperator.ENTITY_TITLE).description(String.format("%s Centre", AssetOperator.ENTITY_TITLE))
+                    .centre(assetOperatorWebUiConfig.centre).done()
                 .done().
             done().done().
             addModule("Table Codes").

@@ -1,4 +1,4 @@
-package singapore.assets;
+package singapore.users;
 
 import com.google.inject.Inject;
 
@@ -7,22 +7,22 @@ import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.entity.annotation.EntityType;
 /**
- * DAO implementation for companion object {@link IAssetTypeOwnership}.
+ * DAO implementation for companion object {@link IAssetOperator}.
  *
  * @author Developers
  *
  */
-@EntityType(AssetTypeOwnership.class)
-public class AssetTypeOwnershipDao extends CommonEntityDao<AssetTypeOwnership> implements IAssetTypeOwnership {
+@EntityType(AssetOperator.class)
+public class AssetOperatorDao extends CommonEntityDao<AssetOperator> implements IAssetOperator {
 
     @Inject
-    public AssetTypeOwnershipDao(final IFilter filter) {
+    public AssetOperatorDao(final IFilter filter) {
         super(filter);
     }
     
     @Override
-    public AssetTypeOwnership new_() {
-        final AssetTypeOwnership operation = super.new_();
+    public AssetOperator new_() {
+        final AssetOperator operation = super.new_();
         operation.getProperty("role").setRequired(true);
         operation.getProperty("bu").setRequired(true);
         operation.getProperty("org").setRequired(true);
@@ -31,8 +31,8 @@ public class AssetTypeOwnershipDao extends CommonEntityDao<AssetTypeOwnership> i
 
 
     @Override
-    protected IFetchProvider<AssetTypeOwnership> createFetchProvider() {
-        return FETCH_PROVIDER;
-       
+    protected IFetchProvider<AssetOperator> createFetchProvider() {
+            return FETCH_PROVIDER;
+
     }
 }
