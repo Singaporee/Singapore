@@ -46,6 +46,17 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     @Readonly
     private String number;
 
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "regulatory", desc = "Indicated if asset is regulatory")
+    private boolean regulatory;
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "key service", desc = "Indicated if asset is key service")
+    private boolean keyservice;
+    
     @IsProperty
     @MapTo
     @Title(value = "Condition Rating", desc = "The class of this asset type.")
@@ -86,6 +97,32 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     public String getNumber() {
         return number;
     }
+    
+    
+    @Observable
+    public Asset setKeyservice(final boolean keyservice) {
+        this.keyservice = keyservice;
+        return this;
+    }
+
+
+    public boolean getKeyservice() {
+        return keyservice;
+
+    }
+    @Observable
+    public Asset setRegulatory(final boolean regulatory) {
+        this.regulatory = regulatory;
+        return this;
+    }
+
+
+    public boolean getRegulatory() {
+        return regulatory;
+
+    }
+    
+    
     @Override
     @Observable
     public Asset setActive(boolean active) {
