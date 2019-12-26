@@ -41,6 +41,11 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     @IsProperty
     @MapTo
+    @Title(value = "regulatory", desc = "Indicated if asset is regulatory")
+    private boolean regulatory;
+
+    @IsProperty
+    @MapTo
     @Title(value = "Number", desc = "A unique asset number, auto-generated.")
     @CompositeKeyMember(1)
     @Readonly
@@ -91,6 +96,19 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     public Asset setActive(boolean active) {
         super.setActive(active);
         return this;
+    }
+    
+    
+    @Observable
+    public Asset setRegulatory(final boolean regulatory) {
+        this.regulatory = regulatory;
+        return this;
+    }
+
+
+    public boolean getRegulatory() {
+        return regulatory;
+    
     }
 }
     
