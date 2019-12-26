@@ -10,6 +10,7 @@ import com.google.inject.Injector;
 
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
+import singapore.assets.AssetFinDet;
 import singapore.assets.AssetTypeOwnership;
 import singapore.common.LayoutComposer;
 import singapore.common.StandardActions;
@@ -59,7 +60,7 @@ public class AssetTypeOwnershipWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<AssetTypeOwnership> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkVarGridForCentre(3, 3);
+        final String layout = LayoutComposer.mkVarGridForCentre(2, 3);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(AssetTypeOwnership.class);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(AssetTypeOwnership.class);
@@ -74,8 +75,7 @@ public class AssetTypeOwnershipWebUiConfig {
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                .addCrit("this").asMulti().autocompleter(AssetTypeOwnership.class).also()
-                .addCrit("asset").asMulti().autocompleter(Asset.class).also()
+                .addCrit("key").asMulti().autocompleter(Asset.class).also()
                 .addCrit("startDate").asRange().date().also()
                 .addCrit("role").asMulti().autocompleter(Role.class).also()
                 .addCrit("bu").asMulti().autocompleter(BusinessUnit.class).also()
@@ -84,10 +84,9 @@ public class AssetTypeOwnershipWebUiConfig {
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardStandaloneScrollingConfig(0))
-                .addProp("this").order(1).asc().width(150)
-                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", AssetTypeOwnership.ENTITY_TITLE))
-                    .withAction(standardEditAction).also()
-                .addProp("asset").order(2).asc().minWidth(100).also()
+                .addProp("key").order(1).asc().width(100)
+                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", AssetFinDet.ENTITY_TITLE))
+                    .withActionSupplier(builder.getOpenMasterAction(Asset.class)).also()
                 .addProp("startDate").width(150).also()
                 .addProp("role").minWidth(100).also()
                 .addProp("bu").minWidth(100).also()
@@ -106,11 +105,10 @@ public class AssetTypeOwnershipWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<AssetTypeOwnership> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(6, 1);
+        final String layout = LayoutComposer.mkGridForMasterFitWidth(5, 1);
 
         final IMaster<AssetTypeOwnership> masterConfig = new SimpleMasterBuilder<AssetTypeOwnership>().forEntity(AssetTypeOwnership.class)
-                .addProp("name").asSinglelineText().also()
-                .addProp("asset").asAutocompleter().also()
+                .addProp("key").asAutocompleter().also()
                 .addProp("startDate").asDatePicker().also()
                 .addProp("role").asAutocompleter().also()
                 .addProp("bu").asAutocompleter().also()

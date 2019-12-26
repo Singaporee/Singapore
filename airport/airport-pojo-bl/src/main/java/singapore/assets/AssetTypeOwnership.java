@@ -20,6 +20,7 @@ import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
+import ua.com.fielden.platform.entity.annotation.SkipEntityExistsValidation;
 import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.entity.annotation.mutator.AfterChange;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
@@ -31,11 +32,11 @@ import ua.com.fielden.platform.utils.Pair;
  * @author Developers
  *
  */
-@KeyType(DynamicEntityKey.class)
-@KeyTitle("Key")
+@KeyType(Asset.class)
+@KeyTitle("Asset")
 @CompanionObject(IAssetTypeOwnership.class)
 @MapEntityTo
-public class AssetTypeOwnership extends AbstractPersistentEntity<DynamicEntityKey> {
+public class AssetTypeOwnership extends AbstractPersistentEntity<Asset> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(AssetTypeOwnership.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
@@ -43,20 +44,20 @@ public class AssetTypeOwnership extends AbstractPersistentEntity<DynamicEntityKe
 
     @IsProperty
     @MapTo
-    @Title(value = "Asset Type Ownership", desc = "number of AssetTypeOwnership")
-    @CompositeKeyMember(1)
-    private String name;
-
+    @SkipEntityExistsValidation(skipActiveOnly = true)
+    private Asset key;
+    
+    @Override
     @Observable
-    public AssetTypeOwnership setName(final String name) {
-        this.name = name;
+    public AssetTypeOwnership setKey(final Asset key) {
+        this.key = key;
         return this;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public Asset getKey() {
+        return key;
     }
-    
     
     @IsProperty
     @MapTo
