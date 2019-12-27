@@ -7,12 +7,16 @@ import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.order
 import static ua.com.fielden.platform.entity.query.fluent.EntityQueryUtils.select;
 
 import java.math.BigDecimal;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
+import ua.com.fielden.platform.dao.IEntityDao;
+//import singapore.tablecodes.validators.LongerThan2Validator;
 import ua.com.fielden.platform.dao.QueryExecutionModel;
+import ua.com.fielden.platform.entity.meta.MetaProperty;
 import ua.com.fielden.platform.entity.query.fluent.fetch;
 import ua.com.fielden.platform.entity.query.model.EntityResultQueryModel;
 import ua.com.fielden.platform.entity.query.model.OrderingModel;
@@ -65,9 +69,9 @@ public class AssetClassTest extends AbstractDaoTestCase {
         final AssetClass ac1 = co$(AssetClass.class).findByKeyAndFetch(IAssetClass.FETCH_PROVIDER.fetchModel(), "AC1");
         assertTrue(ac1.isValid().isSuccessful());
 
-        ac1.setName("A");
+        ac1.setName("BB");
         assertFalse(ac1.isValid().isSuccessful());
-        assertEquals(LongerThanValidator.ERR_SHOULD_BE_LONGER_THAN, ac1.isValid().getMessage());
+        assertFalse(ac1.getProperty("name").isValid());
     }
 
     
@@ -156,7 +160,52 @@ public class AssetClassTest extends AbstractDaoTestCase {
         final String ac1insttitle = ac1inst.getPropertyOptionally("name").map(mp -> mp.getTitle()).orElse("no title");
         assertNotEquals("no title", ac1insttitle);
 
-    }   
+    }  
+    
+    @Test
+    public void can_find_dirty_properties() {
+        final AssetClass ac1 = co$(AssetClass.class).findByKey("AC1");
+        ac1.setName("AC42");
+        
+        final Set<MetaProperty<?>> dirtyProps = ac1.getProperties().values().stream()
+                .filter(mp -> mp.isDirty()).collect(Collectors.toSet());
+        assertEquals(1, dirtyProps.size());
+        dirtyProps.forEach(System.out::println);
+    }
+    
+    @Test
+    public void requiredness_of_properties_defined_as_required_cannot_be_changed_at_runtime() {
+        final IEntityDao<AssetClass> co$ = co$(AssetClass.class);
+        
+        final AssetClass ac1 = co$.findByKey("AC1");
+        assertNotNull(ac1.getDesc());
+        
+        final MetaProperty<String> mpDesc = ac1.getProperty("desc");
+        assertTrue(mpDesc.isRequired());
+        
+        try {
+            mpDesc.setRequired(false);
+            fail("Changing defined requiredness at runtime shold have thrown an exception.");
+        } catch (final Exception ex) {
+        }
+    }
+    
+    @Test
+    public void createdBy_infrmation_is_assigned_upon_saving() {
+        IEntityDao<AssetClass> co$ = co$(AssetClass.class);
+        final AssetClass ac1 = co$.findByKey("AC1");
+        assertNotNull(ac1.getCreatedBy());
+        
+        final AssetClass ac42 = co$.new_().setName("AC42");
+        ac42.setDesc("Description");
+        final AssetClass ac42saved = co$.save(ac42);
+        assertNotNull(ac42saved.getCreatedBy());
+        assertNull(ac42saved.getLastUpdatedBy());
+        
+        final AssetClass ac42savedAgain = co$.save(ac42saved.setDesc("new description"));
+        assertNotNull(ac42savedAgain.getCreatedBy());
+        assertNotNull(ac42savedAgain.getLastUpdatedBy());
+    }
  
     @Override
     public boolean saveDataPopulationScriptToFile() {
