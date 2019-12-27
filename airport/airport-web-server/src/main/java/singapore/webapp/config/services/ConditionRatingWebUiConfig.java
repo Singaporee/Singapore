@@ -1,19 +1,17 @@
-package singapore.webapp.config.asset.tablecodes;
+package singapore.webapp.config.services;
 
-import static java.lang.String.format;
 import static singapore.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
+import static java.lang.String.format;
 import static ua.com.fielden.platform.web.PrefDim.mkDim;
 
 import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import singapore.asset.tablecodes.AssetClass;
-import singapore.asset.tablecodes.AssetType;
 import singapore.common.LayoutComposer;
 import singapore.common.StandardActions;
-
-import singapore.main.menu.asset.tablecodes.MiAssetType;
+import singapore.main.menu.services.MiConditionRating;
+import singapore.services.ConditionRating;
 import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -27,21 +25,21 @@ import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
 /**
- * {@link AssetType} Web UI configuration.
+ * {@link ConditionRating} Web UI configuration.
  *
  * @author Developers
  *
  */
-public class AssetTypeWebUiConfig {
+public class ConditionRatingWebUiConfig {
 
-    public final EntityCentre<AssetType> centre;
-    public final EntityMaster<AssetType> master;
+    public final EntityCentre<ConditionRating> centre;
+    public final EntityMaster<ConditionRating> master;
 
-    public static AssetTypeWebUiConfig register(final Injector injector, final IWebUiBuilder builder) {
-        return new AssetTypeWebUiConfig(injector, builder);
+    public static ConditionRatingWebUiConfig register(final Injector injector, final IWebUiBuilder builder) {
+        return new ConditionRatingWebUiConfig(injector, builder);
     }
 
-    private AssetTypeWebUiConfig(final Injector injector, final IWebUiBuilder builder) {
+    private ConditionRatingWebUiConfig(final Injector injector, final IWebUiBuilder builder) {
         centre = createCentre(injector, builder);
         builder.register(centre);
         master = createMaster(injector);
@@ -49,69 +47,57 @@ public class AssetTypeWebUiConfig {
     }
 
     /**
-     * Creates entity centre for {@link AssetType}.
+     * Creates entity centre for {@link ConditionRating}.
      *
      * @param injector
      * @return created entity centre
      */
-    private EntityCentre<AssetType> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkGridForCentre(2, 2);
+    private EntityCentre<ConditionRating> createCentre(final Injector injector, final IWebUiBuilder builder) {
+        final String layout = LayoutComposer.mkGridForCentre(1, 2);
 
-        final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(AssetType.class);
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(AssetType.class);
-        final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(AssetType.class);
-        final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(AssetType.class);
+        final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(ConditionRating.class);
+        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(ConditionRating.class);
+        final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(ConditionRating.class);
+        final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(ConditionRating.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
-        builder.registerOpenMasterAction(AssetType.class, standardEditAction);
+        builder.registerOpenMasterAction(ConditionRating.class, standardEditAction);
 
-        final EntityCentreConfig<AssetType> ecc = EntityCentreBuilder.centreFor(AssetType.class)
+        final EntityCentreConfig<ConditionRating> ecc = EntityCentreBuilder.centreFor(ConditionRating.class)
                 //.runAutomatically()
                 .addFrontAction(standardNewAction)
                 .addTopAction(standardNewAction).also()
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                .addCrit("this").asMulti().autocompleter(AssetType.class).also()
-                .addCrit("desc").asMulti().text().also()
-                .addCrit("assetClass").asMulti().autocompleter(AssetClass.class).also()
-                .addCrit("active").asMulti().bool()
+                .addCrit("this").asMulti().autocompleter(ConditionRating.class).also()
+                .addCrit("desc").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardStandaloneScrollingConfig(0))
                 .addProp("this").order(1).asc().minWidth(100)
-                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", AssetType.ENTITY_TITLE))
+                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", ConditionRating.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
-                .addProp("desc").minWidth(100).also()
-                .addProp("assetClass")
-                    .width(150)
-                    .withActionSupplier(builder.getOpenMasterAction(AssetClass.class)).also()
-                .addProp("active").width(100)
-              //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
+                .addProp("desc").minWidth(100)
+                //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
                 .addPrimaryAction(standardEditAction)
                 .build();
-        
-        return new EntityCentre<>(MiAssetType.class, MiAssetType.class.getSimpleName(), ecc, injector, null);
+
+        return new EntityCentre<>(MiConditionRating.class, MiConditionRating.class.getSimpleName(), ecc, injector, null);
     }
 
     /**
-     * Creates entity master for {@link AssetType}.
+     * Creates entity master for {@link ConditionRating}.
      *
      * @param injector
      * @return created entity master
      */
-    private EntityMaster<AssetType> createMaster(final Injector injector) {
-<<<<<<< HEAD
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 3);
-=======
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(4, 1);
->>>>>>> Issue-#15
+    private EntityMaster<ConditionRating> createMaster(final Injector injector) {
+        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 2);
 
-        final IMaster<AssetType> masterConfig = new SimpleMasterBuilder<AssetType>().forEntity(AssetType.class)
+        final IMaster<ConditionRating> masterConfig = new SimpleMasterBuilder<ConditionRating>().forEntity(ConditionRating.class)
                 .addProp("name").asSinglelineText().also()
                 .addProp("desc").asMultilineText().also()
-                .addProp("assetClass").asAutocompleter().also()
-                .addProp("active").asCheckbox().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
@@ -121,6 +107,6 @@ public class AssetTypeWebUiConfig {
                 .withDimensions(mkDim(LayoutComposer.SIMPLE_ONE_COLUMN_MASTER_DIM_WIDTH, 480, Unit.PX))
                 .done();
 
-        return new EntityMaster<>(AssetType.class, masterConfig, injector);
+        return new EntityMaster<>(ConditionRating.class, masterConfig, injector);
     }
-}
+} 
