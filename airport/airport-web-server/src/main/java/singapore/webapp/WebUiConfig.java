@@ -9,6 +9,7 @@ import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.assets.AssetFinDet;
 import singapore.assets.AssetTypeOwnership;
+import singapore.assets.UsageRate;
 import singapore.config.personnel.PersonWebUiConfig;
 import singapore.projects.Project;
 import singapore.services.ConditionRating;
@@ -20,6 +21,7 @@ import singapore.webapp.config.asset.tablecodes.AssetTypeWebUiConfig;
 import singapore.webapp.config.assets.AssetFinDetWebUiConfig;
 import singapore.webapp.config.assets.AssetTypeOwnershipWebUiConfig;
 import singapore.webapp.config.assets.AssetWebUiConfig;
+import singapore.webapp.config.assets.UsageRateWebUiConfig;
 import singapore.webapp.config.projects.ProjectWebUiConfig;
 import singapore.webapp.config.services.ConditionRatingWebUiConfig;
 import singapore.webapp.config.services.ServicestatusWebUiConfig;
@@ -102,7 +104,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final AssetTypeOwnershipWebUiConfig assetTypeOwnershipWebUiConfig = AssetTypeOwnershipWebUiConfig.register(injector(), builder);
         final AssetOperatorWebUiConfig assetOperatorWebUiConfig = AssetOperatorWebUiConfig.register(injector(), builder);
         final AssetManagerWebUiConfig assetManagerWebUiConfig = AssetManagerWebUiConfig.register(injector(), builder);
-        
+        final UsageRateWebUiConfig usageRateWebUiConfig = UsageRateWebUiConfig.register(injector(), builder);
         
         //Project
         final ProjectWebUiConfig projectWebUiConfig = ProjectWebUiConfig.register(injector(), builder);
@@ -164,6 +166,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 .centre(conditionRatingWebUiConfig.centre).done()
                 .addMenuItem(AssetTypeOwnership.ENTITY_TITLE).description(String.format("%s Centre", AssetTypeOwnership.ENTITY_TITLE))
                 .centre(assetTypeOwnershipWebUiConfig.centre).done()
+                .addMenuItem(UsageRate.ENTITY_TITLE).description(String.format("%s Centre", UsageRate.ENTITY_TITLE))
+                .centre(usageRateWebUiConfig.centre).done()
             .done().
         done().done()
     .setLayoutFor(Device.DESKTOP, null, "[[[{\"rowspan\":2}], []], [[]]]")

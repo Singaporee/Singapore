@@ -23,6 +23,7 @@ import singapore.organizational.BusinessUnit;
 import singapore.assets.AssetTypeOwnership;
 import singapore.users.AssetOperator;
 import singapore.users.AssetManager;
+import singapore.assets.UsageRate;
 
 /**
  * A class to register domain entities.
@@ -50,6 +51,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
         add(AssetTypeOwnership.class);
         add(AssetOperator.class);
         add(AssetManager.class);
+        add(UsageRate.class);
     }
 
     private static void add(final Class<? extends AbstractEntity<?>> domainType) {
