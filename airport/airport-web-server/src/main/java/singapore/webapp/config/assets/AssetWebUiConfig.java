@@ -57,7 +57,11 @@ public class AssetWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<Asset> createCentre(final Injector injector, final IWebUiBuilder builder) {
+<<<<<<< HEAD
         final String layout = LayoutComposer.mkGridForCentre(1, 7);
+=======
+        final String layout = LayoutComposer.mkGridForCentre(1, 6);
+>>>>>>> Issue-#12
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Asset.class);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Asset.class);
@@ -78,8 +82,12 @@ public class AssetWebUiConfig {
                 .addCrit("servicestatus").asMulti().autocompleter(Servicestatus.class).also()
                 .addCrit("conditionRating").asMulti().autocompleter(ConditionRating.class).also()
                 .addCrit("active").asMulti().bool().also()
+<<<<<<< HEAD
                 .addCrit("regulatory").asMulti().bool().also()
                 .addCrit("keyservice").asMulti().bool()
+=======
+                .addCrit("regulatory").asMulti().bool()
+>>>>>>> Issue-#12
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -89,8 +97,12 @@ public class AssetWebUiConfig {
                     .withAction(standardEditAction).also()
                 .addProp("desc").minWidth(100).also()
                 .addProp("active").width(100).also()
+<<<<<<< HEAD
                 .addProp("regulatory").width(100).also()
                 .addProp("keyservice").width(100)
+=======
+                .addProp("regulatory").width(100)
+>>>>>>> Issue-#12
                 //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
                 .addPrimaryAction(standardEditAction)
                 .build();
@@ -105,7 +117,11 @@ public class AssetWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Asset> createMaster(final Injector injector) {
+<<<<<<< HEAD
         final String layout = LayoutComposer.mkGridForMasterFitWidth(7, 1);
+=======
+        final String layout = LayoutComposer.mkGridForMasterFitWidth(6, 1);
+>>>>>>> Issue-#12
 
         final IMaster<Asset> masterConfig = new SimpleMasterBuilder<Asset>().forEntity(Asset.class)
                 .addProp("number").asSinglelineText().also()
@@ -114,7 +130,10 @@ public class AssetWebUiConfig {
                 .addProp("servicestatus").asAutocompleter().also()
                 .addProp("active").asCheckbox().also()
                 .addProp("regulatory").asCheckbox().also()
+<<<<<<< HEAD
                 .addProp("keyservice").asCheckbox().also()
+=======
+>>>>>>> Issue-#12
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
