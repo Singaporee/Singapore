@@ -1,6 +1,9 @@
 package singapore.assets;
 
+
 import singapore.asset.tablecodes.AssetType;
+
+
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
@@ -27,6 +30,7 @@ import ua.com.fielden.platform.utils.Pair;
  * @author Developers
  *
  */
+
 @KeyType(DynamicEntityKey.class)
 @KeyTitle("Asset Number")
 @CompanionObject(IAsset.class)
@@ -42,16 +46,15 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     @IsProperty
     @MapTo
+    @Title(value = "regulatory", desc = "Indicated if asset is regulatory")
+    private boolean regulatory;
+
+    @IsProperty
+    @MapTo
     @Title(value = "Number", desc = "A unique asset number, auto-generated.")
     @CompositeKeyMember(1)
     @Readonly
     private String number;
-
-    
-    @IsProperty
-    @MapTo
-    @Title(value = "regulatory", desc = "Indicated if asset is regulatory")
-    private boolean regulatory;
     
     @IsProperty
     @MapTo
@@ -146,6 +149,6 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
         super.setActive(active);
         return this;
     }
-}
     
+}
 

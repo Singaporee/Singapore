@@ -18,12 +18,6 @@ import ua.com.fielden.platform.entity.annotation.EntityType;
  * @author Developers
  *
  */
-/**
- * DAO implementation for companion object {@link IAsset}.
- *
- * @author Developers
- *
- */
 @EntityType(Asset.class)
 public class AssetDao extends CommonEntityDao<Asset> implements IAsset {
     public static final String DEFAULT_ASSET_NUMBER = "NEXT NUMBER WILL BE GENERATED UPON SAVE";
@@ -32,7 +26,7 @@ public class AssetDao extends CommonEntityDao<Asset> implements IAsset {
     public AssetDao(final IFilter filter) {
         super(filter);
     }
-    
+
     @Override
     @SessionRequired
     public Asset save(final Asset asset) {
@@ -86,3 +80,4 @@ public class AssetDao extends CommonEntityDao<Asset> implements IAsset {
         return FETCH_PROVIDER;
     }
 }
+

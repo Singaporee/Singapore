@@ -11,8 +11,8 @@ import ua.com.fielden.platform.dao.IEntityDao;
  *
  */
 public interface IAsset extends IEntityDao<Asset> {
-
     static final IFetchProvider<Asset> FETCH_PROVIDER = EntityUtils.fetch(Asset.class)
             .with("number",  "desc", "assetType","conditionRating","servicestatus", "active","regulatory","keyservice");
 
 }
+
