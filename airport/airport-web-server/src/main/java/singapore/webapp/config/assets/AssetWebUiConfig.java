@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.google.inject.Injector;
 
 import singapore.asset.tablecodes.AssetClass;
+import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.common.LayoutComposer;
 import singapore.common.StandardActions;
@@ -57,7 +58,7 @@ public class AssetWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<Asset> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkGridForCentre(1, 7);
+        final String layout = LayoutComposer.mkGridForCentre(5, 4);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Asset.class);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Asset.class);
@@ -75,6 +76,7 @@ public class AssetWebUiConfig {
                 .addTopAction(standardExportAction)
                 .addCrit("this").asMulti().autocompleter(Asset.class).also()
                 .addCrit("desc").asMulti().text().also()
+                .addCrit("assetType").asMulti().autocompleter(AssetType.class).also()
                 .addCrit("servicestatus").asMulti().autocompleter(Servicestatus.class).also()
                 .addCrit("conditionRating").asMulti().autocompleter(ConditionRating.class).also()
                 .addCrit("active").asMulti().bool().also()
@@ -88,6 +90,7 @@ public class AssetWebUiConfig {
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Asset.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
                 .addProp("desc").minWidth(100).also()
+                .addProp("assetType").minWidth(100).also()
                 .addProp("active").width(100).also()
                 .addProp("regulatory").width(100).also()
                 .addProp("keyservice").width(100)
@@ -105,11 +108,12 @@ public class AssetWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Asset> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(7, 1);
+        final String layout = LayoutComposer.mkGridForMasterFitWidth(8, 1);
 
         final IMaster<Asset> masterConfig = new SimpleMasterBuilder<Asset>().forEntity(Asset.class)
                 .addProp("number").asSinglelineText().also()
                 .addProp("desc").asMultilineText().also()
+                .addProp("assetType").asAutocompleter().also()
                 .addProp("conditionRating").asAutocompleter().also()
                 .addProp("servicestatus").asAutocompleter().also()
                 .addProp("active").asCheckbox().also()
