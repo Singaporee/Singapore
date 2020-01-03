@@ -101,11 +101,7 @@ public class AssetTypeWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<AssetType> createMaster(final Injector injector) {
-<<<<<<< HEAD
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 3);
-=======
         final String layout = LayoutComposer.mkGridForMasterFitWidth(4, 1);
->>>>>>> Issue-#15
 
         final IMaster<AssetType> masterConfig = new SimpleMasterBuilder<AssetType>().forEntity(AssetType.class)
                 .addProp("name").asSinglelineText().also()

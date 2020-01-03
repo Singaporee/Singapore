@@ -1,14 +1,6 @@
 package singapore.assets;
 
-<<<<<<< HEAD
-import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
-import ua.com.fielden.platform.entity.annotation.KeyType;
-import ua.com.fielden.platform.entity.annotation.KeyTitle;
-import ua.com.fielden.platform.entity.annotation.CompanionObject;
-import ua.com.fielden.platform.entity.annotation.MapEntityTo;
-import ua.com.fielden.platform.entity.annotation.DescTitle;
-import ua.com.fielden.platform.entity.annotation.DisplayDescription;
-=======
+
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
@@ -25,7 +17,6 @@ import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
->>>>>>> Issue-#15
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
@@ -36,33 +27,20 @@ import ua.com.fielden.platform.utils.Pair;
  * @author Developers
  *
  */
-<<<<<<< HEAD
-@KeyType(String.class)
-@KeyTitle("Key")
-=======
+
 @KeyType(DynamicEntityKey.class)
 @KeyTitle("Asset Number")
->>>>>>> Issue-#15
 @CompanionObject(IAsset.class)
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
 @DescRequired
-<<<<<<< HEAD
-// TODO: May need this later if some entities need to be automatically cascade-deactivated when this entity is deactivated
-// @DeactivatableDependencies({ Dependency1.class, Dependency2.class, Dependency3.class })
-public class Asset extends ActivatableAbstractEntity<String> {
-=======
 public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
->>>>>>> Issue-#15
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Asset.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
 
-<<<<<<< HEAD
-}
-=======
     @IsProperty
     @MapTo
     @Title(value = "regulatory", desc = "Indicated if asset is regulatory")
@@ -74,12 +52,6 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
     @CompositeKeyMember(1)
     @Readonly
     private String number;
-
-    
-    @IsProperty
-    @MapTo
-    @Title(value = "regulatory", desc = "Indicated if asset is regulatory")
-    private boolean regulatory;
     
     @IsProperty
     @MapTo
@@ -159,19 +131,5 @@ public class Asset extends ActivatableAbstractEntity<DynamicEntityKey> {
         return this;
     }
     
-    
-    @Observable
-    public Asset setRegulatory(final boolean regulatory) {
-        this.regulatory = regulatory;
-        return this;
-    }
-
-
-    public boolean getRegulatory() {
-        return regulatory;
-    
-    }
 }
-    
 
->>>>>>> Issue-#15
