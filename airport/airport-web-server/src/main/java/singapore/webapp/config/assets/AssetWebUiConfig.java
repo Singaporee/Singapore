@@ -2,12 +2,12 @@ package singapore.webapp.config.assets;
 
 import static java.lang.String.format;
 import static singapore.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
+import static ua.com.fielden.platform.web.PrefDim.mkDim;
 
 import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import singapore.asset.tablecodes.AssetClass;
 import singapore.asset.tablecodes.AssetType;
 import singapore.assets.Asset;
 import singapore.common.LayoutComposer;
@@ -15,20 +15,18 @@ import singapore.common.StandardActions;
 import singapore.main.menu.assets.MiAsset;
 import singapore.services.ConditionRating;
 import singapore.services.Servicestatus;
-import ua.com.fielden.platform.web.interfaces.ILayout.Device;
+import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
+import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
+import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
 import ua.com.fielden.platform.web.centre.api.actions.EntityActionConfig;
 import ua.com.fielden.platform.web.centre.api.impl.EntityCentreBuilder;
+import ua.com.fielden.platform.web.interfaces.ILayout.Device;
+import ua.com.fielden.platform.web.view.master.EntityMaster;
+import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
-import ua.com.fielden.platform.web.view.master.api.IMaster;
-import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
-
-import ua.com.fielden.platform.web.centre.EntityCentre;
-import ua.com.fielden.platform.web.view.master.EntityMaster;
-import static ua.com.fielden.platform.web.PrefDim.mkDim;
-import ua.com.fielden.platform.web.PrefDim.Unit;
 /**
  * {@link Asset} Web UI configuration.
  *
@@ -77,8 +75,8 @@ public class AssetWebUiConfig {
                 .addCrit("this").asMulti().autocompleter(Asset.class).also()
                 .addCrit("desc").asMulti().text().also()
                 .addCrit("assetType").asMulti().autocompleter(AssetType.class).also()
-                .addCrit("servicestatus").asMulti().autocompleter(Servicestatus.class).also()
                 .addCrit("conditionRating").asMulti().autocompleter(ConditionRating.class).also()
+                .addCrit("servicestatus").asMulti().autocompleter(Servicestatus.class).also()
                 .addCrit("active").asMulti().bool().also()
                 .addCrit("regulatory").asMulti().bool().also()
                 .addCrit("keyservice").asMulti().bool()
@@ -91,6 +89,8 @@ public class AssetWebUiConfig {
                     .withAction(standardEditAction).also()
                 .addProp("desc").minWidth(100).also()
                 .addProp("assetType").minWidth(100).also()
+                .addProp("conditionRating").minWidth(100).also()
+                .addProp("servicestatus").minWidth(100).also()
                 .addProp("active").width(100).also()
                 .addProp("regulatory").width(100).also()
                 .addProp("keyservice").width(100)
